@@ -1,49 +1,37 @@
-const colors = [
-    '#FFFFFF',
-    '#2196F3',
-    '#4CAF50',
-    '#FF9800',
-    '#009688',
-    '#795548',
-  ];
-
+// const timer = new CountdownTimer({
+//   selector: '#timer-1',
+//   targetDate: new Date('Jul 17, 2019'),
+// });
+const targetDate = new Date('Jul 17, 2021');
+// const currentTime = Date.now();
+// const time = targetDate - currentTime;
+// const days = Math.floor(time / (1000 * 60 * 60 * 24));
+// const hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+// const mins = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+// const secs = Math.floor((time % (1000 * 60)) / 1000);
 const refs = {
-  bodyRef: document.querySelector('body'),
-  startBtnRef: document.querySelector('button[data-action="start"]'),
-  stoptBtnRef: document.querySelector('button[data-action="stop"]'),
+  daysRef: document.querySelector('[data-value="days"]'),
+  hoursRef: document.querySelector('[data-value="hours"]'),
+  minsRef: document.querySelector('[data-value="mins"]'),
+  secsRef: document.querySelector('[data-value="secs"]'),
 }  
 
-const randomIntegerFromInterval = (min, max) => {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-};
-
-const colorSwitch = {
-  intervalId: null,
-  isActive: false,
-  start() {
-    if (this.isActive) {
-      return;
-    }
-
-    this.isActive = true;
-    this.intervalId = setInterval(() => {
-      refs.bodyRef.style.backgroundColor = colors[randomIntegerFromInterval(0, colors.length-1)];
-    }, 1000);
-  },
-
-  stop() {
-    clearInterval(this.intervalId);
-    this.isActive = false;
-  },
-};
-
-refs.startBtnRef.addEventListener('click', () => {
-  colorSwitch.start();
-});
-
-refs.stoptBtnRef.addEventListener('click', () => {
-  colorSwitch.stop();
-});
+console.log(refs.daysRef.textContent);
 
 
+
+
+const timer = setInterval(() => {
+  const currentTime = Date.now();
+  console.log('запуск timer');
+  const time = targetDate - currentTime;
+  const days = Math.floor(time / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const mins = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+  const secs = Math.floor((time % (1000 * 60)) / 1000);
+  refs.daysRef.textContent = days;
+  refs.hoursRef.textContent = hours;
+  refs.minsRef.textContent = mins;
+  refs.secsRef.textContent = secs;
+}, 1000)
 
