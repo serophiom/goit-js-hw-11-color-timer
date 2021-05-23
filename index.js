@@ -1,37 +1,45 @@
-// const timer = new CountdownTimer({
-//   selector: '#timer-1',
-//   targetDate: new Date('Jul 17, 2019'),
-// });
-const targetDate = new Date('Jul 17, 2021');
-// const currentTime = Date.now();
-// const time = targetDate - currentTime;
-// const days = Math.floor(time / (1000 * 60 * 60 * 24));
-// const hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-// const mins = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
-// const secs = Math.floor((time % (1000 * 60)) / 1000);
-const refs = {
-  daysRef: document.querySelector('[data-value="days"]'),
-  hoursRef: document.querySelector('[data-value="hours"]'),
-  minsRef: document.querySelector('[data-value="mins"]'),
-  secsRef: document.querySelector('[data-value="secs"]'),
-}  
+class CountdownTimer {
+  constructor ({selector, targetDate}) {
+    this.selector = selector;
+    this.targetDate = targetDate;
+    this.refs = this.getRefs(selector);
+    this.start();
+  }
 
-console.log(refs.daysRef.textContent);
+ 
+    getRefs(id) {
+      const refs = {
+      daysRef: document.querySelector(`${id} [data-value="days"]`),
+      hoursRef: document.querySelector(`${id} [data-value="hours"]`),
+      minsRef: document.querySelector(`${id} [data-value="mins"]`),
+      secsRef: document.querySelector(`${id} [data-value="secs"]`),
+      }
+      return refs;
+    }
+    
+  start() {
+      const addNull = function (value) {
+        return String(value).padStart(2, '0');
+      } 
 
+      const startTimer = setInterval(() => {
+      const currentTime = Date.now();
+      const time = this.targetDate - currentTime;
+      const days = Math.floor(time / (1000 * 60 * 60 * 24));
+      const hours = addNull(Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+      const mins = addNull(Math.floor((time % (1000 * 60 * 60)) / (1000 * 60)));
+      const secs = addNull(Math.floor((time % (1000 * 60)) / 1000));
+      this.refs.daysRef.textContent = days;
+      this.refs.hoursRef.textContent = hours;
+      this.refs.minsRef.textContent = mins;
+      this.refs.secsRef.textContent = secs;
+      }, 1000);
+  };
+   
+  
+}
 
-
-
-const timer = setInterval(() => {
-  const currentTime = Date.now();
-  console.log('запуск timer');
-  const time = targetDate - currentTime;
-  const days = Math.floor(time / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const mins = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
-  const secs = Math.floor((time % (1000 * 60)) / 1000);
-  refs.daysRef.textContent = days;
-  refs.hoursRef.textContent = hours;
-  refs.minsRef.textContent = mins;
-  refs.secsRef.textContent = secs;
-}, 1000)
-
+const timer = new CountdownTimer({
+  selector: '#timer-1',
+  targetDate: new Date('Jul 10, 2021'),
+});
