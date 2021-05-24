@@ -9,10 +9,11 @@ class CountdownTimer {
  
     getRefs(id) {
       const refs = {
-      daysRef: document.querySelector(`${id} [data-value="days"]`),
-      hoursRef: document.querySelector(`${id} [data-value="hours"]`),
-      minsRef: document.querySelector(`${id} [data-value="mins"]`),
-      secsRef: document.querySelector(`${id} [data-value="secs"]`),
+      timerRef: document.querySelector(`${id}`),
+      daysRef: timerRef.querySelector(`${id} [data-value="days"]`),
+      hoursRef: timerRef.querySelector(`${id} [data-value="hours"]`),
+      minsRef: timerRef.querySelector(`${id} [data-value="mins"]`),
+      secsRef: timerRef.querySelector(`${id} [data-value="secs"]`),
       }
       return refs;
     }
