@@ -8,8 +8,8 @@ class CountdownTimer {
 
  
     getRefs(id) {
+      const timerRef = document.querySelector(`${id}`);
       const refs = {
-      timerRef: document.querySelector(`${id}`),
       daysRef: timerRef.querySelector(`${id} [data-value="days"]`),
       hoursRef: timerRef.querySelector(`${id} [data-value="hours"]`),
       minsRef: timerRef.querySelector(`${id} [data-value="mins"]`),
